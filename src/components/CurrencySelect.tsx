@@ -4,7 +4,7 @@ type Props = {
   onChange: (value: string) => void;
 };
 
-const currencies = ['USD', 'EUR', 'GBP', 'JPY', 'UAH'];
+const currencies = ['USD', 'EUR', 'GBP', 'JPY', 'UAH', 'RUB'];
 
 export function CurrencySelect({ label, value, onChange }: Props) {
   return (

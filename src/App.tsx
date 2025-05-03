@@ -1,4 +1,3 @@
-import './App.css'
 import {Converter} from './Converter'
 
 function App() {
