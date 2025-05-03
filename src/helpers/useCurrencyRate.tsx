@@ -8,7 +8,6 @@ export function useCurrencyRate() {
     async function convert(from: string, to: string): Promise<number | null> {
         setLoading(true);
         setError(null);
-
         try {
             const rate = await getCurrencyRate(from, to)
             return rate

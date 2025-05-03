@@ -1,12 +1,16 @@
+type CurrencyOption = {
+  code: string;
+  name: string;
+}
+
 type Props = {
   label: string;
   value: string;
   onChange: (value: string) => void;
+  options: CurrencyOption[];
 };
 
-const currencies = ['USD', 'EUR', 'GBP', 'JPY', 'UAH', 'RUB'];
-
-export function CurrencySelect({ label, value, onChange }: Props) {
+export function CurrencySelect({ label, value, onChange, options }: Props) {
   return (
     <div>
       <label className="block text-sm font-medium mb-1">{label}Currency</label>
@@ -18,9 +22,9 @@ export function CurrencySelect({ label, value, onChange }: Props) {
         <option value="" disabled hidden>
           Select currency
         </option>
-        {currencies.map((cur) => (
-          <option key={cur} value={cur}>
-            {cur}
+        {options.map((currency) => (
+          <option key={currency.code} value={currency.code}>
+            {currency.code} – {currency.name}
           </option>
         ))}
       </select>

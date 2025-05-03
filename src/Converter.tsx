@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useCurrencyRate} from './helpers/useCurrencyRate';
 import { AmountInput } from './components/AmountInput';
 import { CurrencySelect } from './components/CurrencySelect';
 import { ConvertButton } from './components/ConvertButton';
 import { Result } from './components/Result';
+import { getCurrencyList, CurrencyMap } from './helpers/getCurrencyList';
 
 
 export function Converter() {
@@ -11,8 +12,27 @@ export function Converter() {
   const [fromCurrency, setFromCurrency] = useState('');
   const [toCurrency, setToCurrency] = useState('');
   const [result, setResult] = useState<number | null>(null);
+  const [currencies, setCurrencies] = useState<CurrencyMap>({})
+  const [loadingCurrencies, setLoadingCurrencies] = useState(true)
+  const[fetchError, setFetchError] = useState('')
 
   const { convert, loading, error } = useCurrencyRate();
+
+  useEffect(() => {
+    async function loadCurrencies() {
+      try {
+        const data = await getCurrencyList();
+        setCurrencies(data);
+        setFetchError('')
+      } catch (err) {
+        console.error(err);
+        setFetchError('Failed to load currency list')
+      } finally {
+        setLoadingCurrencies(false)
+      }
+    }
+    loadCurrencies()
+  },[])
   
   const handleConvert = async () => {
     if (!amount || !fromCurrency || !toCurrency) return;
@@ -23,13 +43,24 @@ export function Converter() {
     }
 
   }
+
+  const currencyOptions = Object.entries(currencies).map(([code, data]) => ({
+    code,
+    name:data.name,
+  }))
     
     return (
          <div className="max-w-md mx-auto mt-10 p-6 border rounded-xl shadow-lg bg-white space-y-4">
       <h1 className="text-2xl font-bold text-center">Currency Converter</h1>
-      <AmountInput value={amount} onChange={setAmount} />
-      <CurrencySelect label="From" value={fromCurrency} onChange={setFromCurrency} />
-      <CurrencySelect label="To" value={toCurrency} onChange={setToCurrency} />
+        <AmountInput value={amount} onChange={setAmount} />
+        
+        {loadingCurrencies ? (<p className='text-sm text-gray-500 text-center'>Loading currencies...</p>) : fetchError ? (<p className='text-red-500 text-center'>{fetchError}</p>) : (
+          <>
+            <CurrencySelect label="From" value={fromCurrency} onChange={setFromCurrency} options={currencyOptions} />
+            <CurrencySelect label="To" value={toCurrency} onChange={setToCurrency} options={currencyOptions}/>
+          </>
+        )}
+
         <ConvertButton onClick={handleConvert} />
         
         {loading && <p className='text-sm text-gray-500 text-center'>Converting...</p>}
