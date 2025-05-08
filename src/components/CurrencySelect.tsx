@@ -1,6 +1,7 @@
 type CurrencyOption = {
   code: string;
   name: string;
+  flag?: string;
 }
 
 type Props = {
@@ -24,7 +25,7 @@ export function CurrencySelect({ label, value, onChange, options }: Props) {
         </option>
         {options.map((currency) => (
           <option key={currency.code} value={currency.code}>
-            {currency.code} – {currency.name}
+            {currency.flag?`${currency.flag}`:''} {currency.code} – {currency.name}
           </option>
         ))}
       </select>
