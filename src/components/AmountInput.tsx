@@ -5,8 +5,8 @@ type Props = {
 
 export function AmountInput({ value, onChange }: Props) {
   return (
-    <div>
-      <label className="block text-sm font-medium mb-1">Amount</label>
+    <div className="mb-4">
+      <label className="block text-sm font-medium text-gray-700 mb-1">Amount</label>
       <input
         type="number"
         value={value}

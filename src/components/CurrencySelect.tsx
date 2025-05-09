@@ -13,8 +13,8 @@ type Props = {
 
 export function CurrencySelect({ label, value, onChange, options }: Props) {
   return (
-    <div>
-      <label className="block text-sm font-medium mb-1">{label}Currency</label>
+    <div className="mb-4">
+      <label className="block text-sm font-medium text-gray-700 mb-1">{label}Currency</label>
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}

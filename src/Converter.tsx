@@ -50,49 +50,44 @@ export function Converter() {
   }));
 
   return (
-    <div className="max-w-md mx-auto mt-12 px-6 py-8 bg-white rounded-2xl shadow-2xl border border-gray-100 space-y-6">
-      <h1 className="text-3xl font-bold text-center text-gray-800">
-        💱 Currency Converter
-      </h1>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
+    <div className="w-full max-w-4xl bg-white p-6 rounded-2xl shadow-lg grid gap-6 md:grid-cols-2">
+      <div>
+        <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center md:text-left">
+          💱 Currency Converter
+        </h1>
 
-      {loadingCurrencies ? (
-        <p className="text-sm text-gray-500 text-center">
-          Loading currencies...
-        </p>
-      ) : fetchError ? (
-        <p className="text-red-500 text-center">{fetchError}</p>
-      ) : (
-        <>
-          <CurrencySelect
-            label="From"
-            value={fromCurrency}
-            onChange={setFromCurrency}
-            options={currencyOptions}
-          />
-          <CurrencySelect
-            label="To"
-            value={toCurrency}
-            onChange={setToCurrency}
-            options={currencyOptions}
-          />
-        </>
-      )}
+        {loadingCurrencies ? (
+          <p className="text-sm text-gray-500 text-center">Loading currencies...</p>
+        ) : fetchError ? (
+          <p className="text-red-500 text-center">{fetchError}</p>
+        ) : (
+          <>
+            <CurrencySelect
+              label="From"
+              value={fromCurrency}
+              onChange={setFromCurrency}
+              options={currencyOptions}
+            />
+            <CurrencySelect
+              label="To"
+              value={toCurrency}
+              onChange={setToCurrency}
+              options={currencyOptions}
+            />
+          </>
+        )}
 
-      <AmountInput value={amount} onChange={setAmount} />
+        <AmountInput value={amount} onChange={setAmount} />
+        <ConvertButton onClick={handleConvert} />
+      </div>
+      <div className="flex flex-col items-center justify-center text-center">
+        {loading && <p className="text-sm text-gray-500 mb-2">Converting...</p>}
+        {error && <p className="text-red-500 mb-2">{error}</p>}
 
-      <ConvertButton onClick={handleConvert} />
-
-      {loading && (
-        <p className="text-sm text-gray-500 text-center">Converting...</p>
-      )}
-      {error && <p className="text-red-500 text-center">{error}</p>}
-
-      <Result
-        amount={amount}
-        from={fromCurrency}
-        to={toCurrency}
-        result={result}
-      />
+        <Result amount={amount} from={fromCurrency} to={toCurrency} result={result} />
+      </div>
     </div>
+  </div>
   );
 }
