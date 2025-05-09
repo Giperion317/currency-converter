@@ -6,6 +6,8 @@ import { ConvertButton } from './components/ConvertButton';
 import { Result } from './components/Result';
 import { getCurrencyList, CurrencyMap } from './helpers/getCurrencyList';
 import { flagCurrensies } from './helpers/flagCurrensies';
+import { useFilteredCurrencies } from './helpers/useFilteredCurrencies';
+import { CurrencyFilter } from './components/СurrencyFilter';
 
 export function Converter() {
   const [amount, setAmount] = useState('');
@@ -15,6 +17,8 @@ export function Converter() {
   const [currencies, setCurrencies] = useState<CurrencyMap>({});
   const [loadingCurrencies, setLoadingCurrencies] = useState(true);
   const [fetchError, setFetchError] = useState('');
+  const [showTop, setShowTop] = useState(false);
+  const [showCrypto, setShowCrypto] = useState(false);
 
   const { convert, loading, error } = useCurrencyRate();
 
@@ -34,28 +38,35 @@ export function Converter() {
     loadCurrencies();
   }, []);
 
-  const handleConvert = async () => {
-    if (!amount || !fromCurrency || !toCurrency) return;
-
-    const rate = await convert(fromCurrency, toCurrency);
-    if (rate !== null) {
-      setResult(Number(amount) * rate);
-    }
-  };
-
   const currencyOptions = Object.entries(currencies).map(([code, data]) => ({
     code,
     name: data.name,
     flag: flagCurrensies[code] || '',
   }));
 
+  const filteredOptions = useFilteredCurrencies(currencyOptions, showTop, showCrypto);
+
+  const handleConvert = async () => {
+    if (!amount || !fromCurrency || !toCurrency) return;
+    const rate = await convert(fromCurrency, toCurrency);
+    if (rate !== null) {
+      setResult(Number(amount) * rate);
+    }
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-    <div className="w-full max-w-4xl bg-white p-6 rounded-2xl shadow-lg grid gap-6 md:grid-cols-2">
+    <div className="bg-white p-6 rounded-2xl shadow-lg grid gap-6 md:grid-cols-2 w-full">
       <div>
         <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center md:text-left">
           💱 Currency Converter
         </h1>
+
+        <CurrencyFilter
+          showTop={showTop}
+          showCrypto={showCrypto}
+          onToggleTop={() => setShowTop((prev) => !prev)}
+          onToggleCrypto={() => setShowCrypto((prev) => !prev)}
+        />
 
         {loadingCurrencies ? (
           <p className="text-sm text-gray-500 text-center">Loading currencies...</p>
@@ -67,13 +78,13 @@ export function Converter() {
               label="From"
               value={fromCurrency}
               onChange={setFromCurrency}
-              options={currencyOptions}
+              options={filteredOptions}
             />
             <CurrencySelect
               label="To"
               value={toCurrency}
               onChange={setToCurrency}
-              options={currencyOptions}
+              options={filteredOptions}
             />
           </>
         )}
@@ -81,13 +92,12 @@ export function Converter() {
         <AmountInput value={amount} onChange={setAmount} />
         <ConvertButton onClick={handleConvert} />
       </div>
+
       <div className="flex flex-col items-center justify-center text-center">
         {loading && <p className="text-sm text-gray-500 mb-2">Converting...</p>}
         {error && <p className="text-red-500 mb-2">{error}</p>}
-
         <Result amount={amount} from={fromCurrency} to={toCurrency} result={result} />
       </div>
     </div>
-  </div>
   );
 }
