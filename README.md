@@ -1,54 +1,68 @@
-# React + TypeScript + Vite
+# 💱 Currency Converter
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive and user-friendly currency converter built with **React**, **TypeScript**, and **Tailwind CSS**. It fetches real-time exchange rates and allows filtering between top world currencies and cryptocurrencies.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🌍 Convert between 150+ fiat and crypto currencies
+- ✅ Filter options for:
+  - Top currencies (USD, EUR, GBP, etc.)
+  - Popular cryptocurrencies (BTC, ETH, SOL, etc.)
+- 🔄 Real-time exchange rates via REST API
+- ⚡ Instant conversion with loading state handling
+- 🧠 Optimized performance using `useMemo`
+- 💡 Clean and modern UI with full responsiveness
 
-## Expanding the ESLint configuration
+## 🛠 Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- Custom React Hooks (`useCurrencyRate`, `useFilteredCurrencies`)
+- Public API for exchange rates (e.g. [Exchangerate.host](https://exchangerate.host/) or similar)
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 📸 Screenshots
+
+| Light Theme                          | Filter Example                              |
+| ------------------------------------ | ------------------------------------------- |
+| ![Main View](./screenshots/main.png) | ![Filter Options](./screenshots/filter.png) |
+
+## 📦 Installation
+
+```bash
+git clone https://github.com/yourusername/currency-converter.git
+cd currency-converter
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 📁 Folder Structure
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+src/
+├── components/
+│ ├── AmountInput.tsx
+│ ├── ConvertButton.tsx
+│ ├── CurrencySelect.tsx
+│ ├── CurrencyFilter.tsx
+│ └── Result.tsx
+├── helpers/
+│ ├── useCurrencyRate.ts
+│ ├── getCurrencyList.ts
+│ ├── flagCurrencies.ts
+│ └── useFilteredCurrencies.ts
+├── Converter.tsx
+└── App.tsx
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+## 🧩 Planned Improvements
+
+- 🌐 Multilingual support (EN/DE/UA)
+- 🗂 History of conversions
+- 💾 Offline support with local caching
+- 📲 PWA version for mobile devices
+
+## 📄 License
+
+MIT License
+
+👨‍💻 Author
+Anatolii Pysmennyi — **[GitHub](https://github.com/Giperion317)** | **[LinkedIn](www.linkedin.com/in/anatolii-pysmennyi)**
