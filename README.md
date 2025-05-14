@@ -2,6 +2,9 @@
 
 A responsive and user-friendly currency converter built with **React**, **TypeScript**, and **Tailwind CSS**. It fetches real-time exchange rates and allows filtering between top world currencies and cryptocurrencies.
 
+🔗 [RateShift](https://rateshift.netlify.app/)  
+🔗 [GitHub](https://github.com/Giperion317/currency-converter)
+
 ## 🚀 Features
 
 - 🌍 Convert between 150+ fiat and crypto currencies
