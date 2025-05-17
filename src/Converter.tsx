@@ -77,13 +77,19 @@ export function Converter() {
             <CurrencySelect
               label="From"
               value={fromCurrency}
-              onChange={setFromCurrency}
+              onChange={(value) => {
+                setFromCurrency(value);
+                setResult(null);
+              }}
               options={filteredOptions}
             />
             <CurrencySelect
               label="To"
               value={toCurrency}
-              onChange={setToCurrency}
+              onChange={(value) => {
+                setToCurrency(value);
+                setResult(null);
+              }}
               options={filteredOptions}
             />
           </>
