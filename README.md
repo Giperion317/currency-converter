@@ -58,7 +58,7 @@ src/
 
 ## 🧩 Planned Improvements
 
-- 🌐 Multilingual support (EN/DE/UA)
+- 🌐 Multilingual support (EN/DE)
 - 🗂 History of conversions
 - 💾 Offline support with local caching
 - 📲 PWA version for mobile devices
