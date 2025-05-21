@@ -1,0 +1,11 @@
+{
+  "welcome": "Währungsrechner",
+  "top": "Top-Währungen",
+  "crypto": "Krypto",
+  "from": "Von",
+  "to": "Zu",
+  "select": "Währung auswählen",
+  "amount": "Betrag",
+  "placeholder": "Betrag eingeben",
+  "convert": "Umrechnen"
+}

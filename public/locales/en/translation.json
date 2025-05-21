@@ -1,0 +1,11 @@
+{
+    "welcome": "Currency Converter",
+    "top": "Top currencies",
+    "crypto":"Crypto",
+    "from": "From",
+    "to": "To",
+    "select":"Select currensy",
+    "amount": "Amount",
+    "placeholder":"Enter amount",
+    "convert": "Convert"
+  }
